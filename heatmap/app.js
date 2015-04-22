@@ -46,11 +46,18 @@ function setMarkers(map, locations){
     for (var i = 0; i < locations.length; i++) {
         var place = locations[i];
         var myLatLng = new google.maps.LatLng(place[1], place[2]);
+        var infowindow = new google.maps.InfoWindow({
+            content: place[0]
+        });
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
             animation: google.maps.Animation.DROP,
-            title: place[0]
+            title: place[0],
+            infowindow: infowindow
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+            this.infowindow.open(map,this);
         });
 
     }
